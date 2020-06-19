@@ -16,7 +16,7 @@ const interval = setInterval(function() {
 }, 5000);
 const main = async () => {
   await Node.start({
-    addrs: ["127.0.0.1:9000"],
+    addrs: ["158.177.144.173:30795"],
     services: {
       all_temperature: all,
     },
