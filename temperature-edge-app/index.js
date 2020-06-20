@@ -7,16 +7,19 @@ db.exec(
     , temperature INTEGER)`
 );
 
-const all = async (ctx) =>ctx.json(await db.prepare(`SELECT id, timestamp, temperature FROM temperature`).all());
+const all = async (ctx) => {
+  ctx.header("Access-Control-Allow-Origin", "*")
+  ctx.json(await db.prepare(`SELECT id, timestamp, temperature FROM temperature`).all());
+}
 const interval = setInterval(function() {
-  const temp= Math.random() * (30 - 20) + 20
+  const temp= Math.random() * (100 - 20) + 20
   db.exec(
     `INSERT INTO temperature (temperature) VALUES( ${temp})`
   );
 }, 5000);
 const main = async () => {
   await Node.start({
-    addrs: ["158.177.144.173:30795"],
+    addrs: ["158.177.144.173:9000"],
     services: {
       all_temperature: all,
     },
